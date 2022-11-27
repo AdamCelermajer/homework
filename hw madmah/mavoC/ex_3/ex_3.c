@@ -62,6 +62,7 @@ void printError()
  *************************************************************************/
 int final(int op1, int cmd, int op2)
 {
+
     int diff = 'a' - 'A';
     if (op1 >= 'A' && op1 <= 'Z')
     {
@@ -141,12 +142,12 @@ int operator()
     op = ch;
     scanf("%c", &ch);
 
-    if (ch > '0' && ch <= '9')
+    if (ch >= '0' && ch <= '9')
     {
 
         while ((ch >= '0' && ch <= '9'))
         {
-            val2 = val2 * TENBASE + (ch - '0');
+            val2 = val2 * TENBASE + (int)(ch - '0');
 
             scanf("%c", &ch);
         }
@@ -189,13 +190,12 @@ int brain()
     int firstop = '|';
     int op = FALSE;
     int rst = ZERO;
-
+    int input = 'd';
     while (TRUE)
     {
         int not = ZERO;
         int val = ZERO;
 
-        int input;
         scanf(" %c", &input);
 
         // todo check input
@@ -245,11 +245,15 @@ int brain()
                 if (op != FALSE)
                 {
                     rst = final(rst, op, val);
+                    return rst;
                 }
                 return val;
             }
         }
-        return FALSE;
+        else
+        {
+            return FALSE;
+        }
     }
 }
 
@@ -283,9 +287,9 @@ int printTwo()
     int digit = ZERO;
     int testNum = ZERO;
     int testDig = ZERO;
-    printf("Please enter a number and a digit: ");
+    printf("Enter a number and a digit: ");
 
-    if (!scanf("%lld", &num) || !scanf("%d", &digit) || num < ZERO || digit < ZERO)
+    if (!scanf("%lld", &num) || !scanf("%d", &digit) || num < ZERO || digit < ZERO || digit > 9)
     {
         return ZERO;
     }
@@ -300,7 +304,7 @@ int printTwo()
         rst = checkit(num, digit);
     }
 
-    printf("the digit %d appears %d times in the number %d\n", digit, rst, num);
+    printf("The digit %d appears %d times in the number %d\n", digit, rst, num);
     return TRUE;
 }
 
@@ -352,20 +356,20 @@ void main()
         {
         case 1:
 
-            printf("Please write your logical statement: ");
+            printf("\nPlease write your logical statement: ");
             int print = brain();
 
             if (print == TRUE)
             {
-                printf("The statement is true\n");
+                printf("The statement is true.\n");
             }
             else if (print == ZERO)
             {
-                printf("the statement is false\n");
+                printf("The statement is false.\n");
             }
             else
 
-                printf("You have a syntax error in your statement \n");
+                printf("You have a syntax error in your statement.\n");
             break;
 
         case 2:
@@ -390,7 +394,14 @@ void main()
                 break;
             }
 
-            printf("GCD = %d\n", recgcd(num2, num1));
+            if (num1 > num2)
+            {
+                printf("GCD = %d\n", recgcd(num1, num2));
+            }
+            else
+            {
+                printf("GCD = %d\n", recgcd(num2, num1));
+            }
             break;
 
         case 4:
