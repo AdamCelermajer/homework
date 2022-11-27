@@ -7,12 +7,21 @@
 #include <stdio.h>
 #include <math.h>
 
+#define FALSE 0
+#define ZERO 0
+#define TRUE 1
+#define TEN 10
+#define BINARY 2
+#define SEVEN 7
+#define EIGHT 8
+#define HEX 16
+#define ONE 1
 int main()
 {
     // exit variable that will be initialized at zero and later on switched to tell the program to stop
-    int exit = 0;
+    int exit = FALSE;
 
-    while (exit == 0)
+    while (exit == FALSE)
     { // while exit==0  runn!
 
         // menu print
@@ -33,25 +42,25 @@ int main()
             // get the number from user reversed
 
             // i dont want it to be reversed so we will reverse back the number
-            int remain = 0;  // will be used to save the remain of modulo operation
-            int reverse = 0; // will be used to save the real number after the reverse
+            int remain = FALSE;  // will be used to save the remain of modulo operation
+            int reverse = FALSE; // will be used to save the real number after the reverse
             // reverse back the number
-            int alert = 0;
-            while (octalNum != 0)
+            int alert = FALSE;
+            while (octalNum != FALSE)
             {
 
-                remain = octalNum % 10;
-                if (remain > 7) // checking for invalid input!
-                {               // bad number its not octal
-                    alert = 1;
+                remain = octalNum % TEN;
+                if (remain > SEVEN) // checking for invalid input!
+                {                   // bad number its not octal
+                    alert = TRUE;
                     break;
                 }
 
                 // left shift the reverse to allocate space for the remain
-                reverse = reverse * 10 + remain;
+                reverse = reverse * TEN + remain;
 
                 // decriment the number
-                octalNum /= 10;
+                octalNum /= TEN;
             }
 
             if (alert) // if my alert has been changed to 1 that means a wrong input has been received
@@ -61,34 +70,34 @@ int main()
             }
 
             // transform it to decimal
-            int decimalNum = 0;
+            int decimalNum = ZERO;
             int resave;
             resave = reverse; // will be used to work with it
-            int count = 0;    // will be used to count the place/index of the remain in the octal
+            int count = ZERO; // will be used to count the place/index of the remain in the octal
 
             // take the number and trasnform it to decimal
-            for (int i = 1; i < reverse; i = i * 10) // incriment the i by time 10
+            for (int i = 1; i < reverse; i = i * TEN) // incriment the i by time 10
             {
-                decimalNum += ((resave % 10) * (pow(8, count))); // num * 8^(his place in the decimal)
-                resave /= 10;                                    // decriment the reversed number
-                count++;                                         // increase by one according to index
+                decimalNum += ((resave % TEN) * (pow(EIGHT, count))); // num * 8^(his place in the decimal)
+                resave /= TEN;                                        // decriment the reversed number
+                count++;                                              // increase by one according to index
             }
 
-            int anum = '0';    // ascii number of '0'
-            int ahex = 'A';    // ascii number of 'A'
-            int tmp, hexd = 0; // temp will be used for a remain ,
-            char hexRst;       // just used for the printing to convert from ascii number to a real letter
+            int anum = '0';       // ascii number of '0'
+            int ahex = 'A';       // ascii number of 'A'
+            int tmp, hexd = ZERO; // temp will be used for a remain ,
+            char hexRst;          // just used for the printing to convert from ascii number to a real letter
 
-            for (int i = decimalNum; i > 0; i = i / 16) // for loop where i divise decimalNum each time by 16 until 0
+            for (int i = decimalNum; i > 0; i = i / HEX) // for loop where i divise decimalNum each time by 16 until 0
             {
 
-                tmp = i % 16; // get the remain of modulo to tmp
+                tmp = i % HEX; // get the remain of modulo to tmp
 
-                if (tmp < 10)         // here im doing a check if its a letter or a number
+                if (tmp < TEN)        // here im doing a check if its a letter or a number
                     tmp = tmp + anum; // its a leter so i get the ascii number of it by adding it to '0'
                 else
                 {
-                    tmp = tmp - 10 + ahex; // equivalent in ascii is the diff between temp and 10 and add it and add it to ascii 'A'
+                    tmp = tmp - TEN + ahex; // equivalent in ascii is the diff between temp and 10 and add it and add it to ascii 'A'
                 }
                 hexd = hexd * 100 + tmp; // we make an indent of 00 as max ascii value dont depass 100 so we can add the new number safely
             }
@@ -127,15 +136,15 @@ int main()
             unsigned long long temp = bin1; // will be used as a saving variable to work with
 
             // we are going to invert the binary numbers we just got to convert them more easily to decimal
-            unsigned long long invBin1 = 1; // we initialize it at 1 so the zeroes that come at him will be saved
-            unsigned long long invBin2 = 1;
+            unsigned long long invBin1 = TRUE; // we initialize it at 1 so the zeroes that come at him will be saved
+            unsigned long long invBin2 = TRUE;
 
             // quick check to see if they arent equals to zero as it mess up everything
-            if (bin1 + bin2 == 0)
+            if (bin1 + bin2 == FALSE)
             {
                 // they are equals to zero so we put them at 10 so it can follow the process
-                invBin1 = 10;
-                invBin2 = 10;
+                invBin1 = TEN;
+                invBin2 = TEN;
             }
             // checker  forinvalid input
             int fail = 0;
@@ -147,18 +156,18 @@ int main()
             */
             while (max)
             {
-                max = max / 10;
+                max = max / TEN;
 
-                invBin1 = invBin1 * 10;
-                if (temp % 10 > 1) // if bin1 has a digit bigger than 1 its not a binary number then its bad
+                invBin1 = invBin1 * TEN;
+                if (temp % TEN > 1) // if bin1 has a digit bigger than 1 its not a binary number then its bad
                 {
 
                     printf("Invalid input!\n");
                     fail++;
                     break;
                 }
-                invBin1 += temp % 10;
-                temp = temp / 10;
+                invBin1 += temp % TEN;
+                temp = temp / TEN;
             }
             if (fail) // quitting if it fails and we got a invalid input
             {
@@ -182,46 +191,46 @@ int main()
              */
             while (max)
             {
-                max = max / 10;
-                invBin2 = invBin2 * 10;
-                if (temp % 10 > 1) // if bin2 has a digit bigger than 1 its not a binary number then its bad
+                max = max / TEN;
+                invBin2 = invBin2 * TEN;
+                if (temp % TEN > 1) // if bin2 has a digit bigger than 1 its not a binary number then its bad
                 {
                     fail++;
                     printf("Invalid input!\n");
                     break;
                 }
-                invBin2 += temp % 10;
-                temp = temp / 10;
+                invBin2 += temp % TEN;
+                temp = temp / TEN;
             }
             if (fail) // quitting if it fails and we got a invalid input
                 break;
 
-            long dec1 = 0; // will be used now to get the decimal value of bin1
-            long dec2 = 0; // will be used now to get the decimal value of bin2
+            long dec1 = ZERO; // will be used now to get the decimal value of bin1
+            long dec2 = ZERO; // will be used now to get the decimal value of bin2
 
             // print bin1 and getting decimal value of bin1
-            while (invBin1 != 1) // we dont take the 1 that protect the zeroes , his job is finished
+            while (invBin1 != TRUE) // we dont take the 1 that protect the zeroes , his job is finished
             {
-                dec1 = dec1 << 1; /* shifting left (its like doing a multiplication by 2 )
+                dec1 = dec1 << ONE; /* shifting left (its like doing a multiplication by 2 )
                                     which is used to simulate the power of 2 .
                                     the first digit will be multiplyed by 2 the number of place he has been shifted
                                    */
 
-                dec1 += invBin1 % 10;
-                printf("%llu", invBin1 % 10); // printing digit digit inversed of invBin1 which is good because the output is bin1
-                invBin1 = invBin1 / 10;
+                dec1 += invBin1 % TEN;
+                printf("%llu", invBin1 % TEN); // printing digit digit inversed of invBin1 which is good because the output is bin1
+                invBin1 = invBin1 / TEN;
             }
             printf(" + ");
 
             // print bin2 and getting decimal value of bin2
             // same explication as invBin1
-            while (invBin2 != 1)
+            while (invBin2 != TRUE)
             {
 
-                dec2 = dec2 * 2;
-                dec2 += invBin2 % 10;
-                printf("%llu", invBin2 % 10);
-                invBin2 = invBin2 / 10;
+                dec2 = dec2 * BINARY;
+                dec2 += invBin2 % TEN;
+                printf("%llu", invBin2 % TEN);
+                invBin2 = invBin2 / TEN;
             }
 
             printf(" = ");
@@ -230,21 +239,21 @@ int main()
             max = dec1 + dec2;
             unsigned long long invbinRst = 1; // initialized to 1 to protect the zero again
             if (!max)                         // if max==0 its bad so we initialize it to "10" as it is a 1 protection and the value still 0
-                invbinRst = 10;
+                invbinRst = TEN;
 
             // transform decimal result to inverted binary representation
             while (max)
             {
-                invbinRst = invbinRst * 10;
-                invbinRst += max % 2;
-                max = max / 2;
+                invbinRst = invbinRst * TEN;
+                invbinRst += max % BINARY;
+                max = max / BINARY;
             }
 
             // invert binary result and print
-            while (invbinRst != 1)
+            while (invbinRst != TRUE)
             {
-                printf("%llu", invbinRst % 10);
-                invbinRst = invbinRst / 10;
+                printf("%llu", invbinRst % TEN);
+                invbinRst = invbinRst / TEN;
             }
 
             printf("\n");
@@ -267,17 +276,29 @@ int main()
             and the most right digit indicates if its a line that happening more than once 0=no 1=yes
             */
             printf("Please enter size: ");
-            long long int line0 = 1812218171810; // its the format for line number 1 which is a lot of # and some space
-            long long int line1 = 1912219171911; // its the format for line number 2 which happening more than once
-            long long int line2 = 1912219181910;
-            long long int line3 = 1912219393911;
-            long long int line4 = 1912219181910;
-            long long int line5 = 1912219171911;
-            long long int line6 = 1812218171810;
+            long long int line0 = 18122181721810; // its the format for line number 1 which is a lot of # and some space
+            long long int line1 = 19122191721911; // its the format for line number 2 which happening more than once
+            long long int line2 = 19122191811910;
+            long long int line3 = 19122193933911;
+            long long int line4 = 19122191811910;
+            long long int line5 = 19122191721911;
+            long long int line6 = 18122181721810;
 
-            int size;
-            scanf("%d", &size); // get size from user
-            if (size < 1)       // check input
+            unsigned int size2;
+            scanf("%u", &size2); // get size from user
+            int size = size2;
+            if (size == ZERO)
+            {
+                line0 = 1122112110; // its the format for line number 1 which is a lot of # and some space
+                line1 = 1122111110; // its the format for line number 2 which happening more than once
+                line2 = 1122111110;
+                line3 = 1122112110;
+                line4 = ZERO;
+                line5 = ZERO;
+                line6 = ZERO;
+            }
+
+            if (size < ZERO) // check input
             {
                 printf("Invalid input!\n");
                 break;
@@ -285,18 +306,18 @@ int main()
 
             while (line0) // until line0 is equals to zero , that will happen at the end of all the lines
             {
-                int repeater = (size * (line0 % 10)); // if the line need to be repeated more than once
+                int repeater = (size * (line0 % TEN)); // if the line need to be repeated more than once
 
                 if (!repeater) // if its zero we still want to run it once
                     repeater++;
 
                 while (repeater--) // looping until no need to repeat
                 {
-                    long long int currentLine = line0 / 10; // we remove it now because first digit is only the repetition
+                    long long int currentLine = line0 / TEN; // we remove it now because first digit is only the repetition
 
                     while (currentLine) // runing the line until line is done
                     {
-                        switch (currentLine % 10) // multiple option based on the format
+                        switch (currentLine % TEN) // multiple option based on the format
                         {
                         case 1:
                             printf("#");
@@ -322,7 +343,7 @@ int main()
                         default:
                             break;
                         }
-                        currentLine /= 10; // decrement the current line
+                        currentLine /= TEN; // decrement the current line
                     }
                     printf("\n"); // end of line we \n
                 }
@@ -333,29 +354,29 @@ int main()
                 line3 = line4;
                 line4 = line5;
                 line5 = line6;
-                line6 = 0; // and after all the line has been done , line0 will be zero and the while will quit
+                line6 = ZERO; // and after all the line has been done , line0 will be zero and the while will quit
             }
 
             break;
         case 4:
             // how many 1 in a binary
-            printf("please enter a binary number: ");
+            printf("Please enter a binary number: ");
             int checker = -1; // an alert to check the input
             long long int binNum;
             scanf("%lld", &binNum);
-            int counter = 0; // used to count the number of 1
+            int counter = ZERO; // used to count the number of 1
 
-            while (binNum != 0) // until the input is equals to zero
+            while (binNum != ZERO) // until the input is equals to zero
             {
-                if (binNum % 10 == 1)
+                if (binNum % TEN == 1)
                     counter++;
-                else if (binNum % 10 != 0) // if its not 1 and its not zero then its bad!
+                else if (binNum % TEN != ZERO) // if its not 1 and its not zero then its bad!
                 {
                     printf("Invalid input!\n");
-                    checker = 0;
+                    checker = FALSE;
                     break;
                 }
-                binNum /= 10; // decrement by /10
+                binNum /= TEN; // decrement by /10
             }
             if (checker == -1)
             {
@@ -366,30 +387,24 @@ int main()
         case 5:
 
             // convert to binary
-            printf("enter a non negative decimal number: ");
+            printf("Enter a non negative decimal number: ");
 
-            int decNum, save;         // decNum is user input and save will be to save it for the printing
-            long long int binRst = 0; // result where the binary representation will be
-            int powcount = 0;         // we gonna use some power based on the index
-            temp = 0;                 // as we already used temp above and was running out of name we just reuzed it
-            int rem = 0;              // remain variable of the modulo
+            int decNum, save;    // decNum is user input and save will be to save it for the printing
+            int binRst = ZERO;   // result where the binary representation will be
+            int powcount = ZERO; // we gonna use some power based on the index
+            temp = ZERO;         // as we already used temp above and was running out of name we just reuzed it
+            int rem = ZERO;      // remain variable of the modulo
             scanf("%d", &decNum);
             save = decNum;
 
-            if (decNum < 0) // quick check for non negative decimal
-            {
-                printf("Invalid input!\n");
-                break;
-            }
-
             // transform to binary representation
-            while (decNum > 0)
+            while (decNum > FALSE)
             {
-                rem = decNum % 2;
-                temp = pow(10, powcount);       // we gonna shift the rem by using an exponent of 10 (like a left shift >>)
-                binRst = binRst + (temp * rem); // shifting the remain so it can  enter on the most left place
-                powcount++;                     // incrementing by 1 my exponent index
-                decNum /= 2;
+                rem = decNum % BINARY;
+                temp = pow(TEN, powcount);
+                binRst = binRst + (temp * rem);
+                powcount++;
+                decNum /= BINARY;
             }
             printf("%d => %lld\n", save, binRst);
 
@@ -397,33 +412,27 @@ int main()
         case 6:
 
             // zigzag
-            printf("enter a non negative decimal number: ");
-            rem = 0; // reusing the remain variable from option 5
+            printf("Enter a non negative decimal number: ");
+            rem = ZERO; // reusing the remain variable from option 5
             int mynum;
-            int rst = -1;     // will be used as an alert to know if zigzag or not
-            int lastone = -1; // will be used to check last digit
+            int rst = -1;
+            int lastone = -1;
             scanf("%d", &mynum);
 
-            if (mynum < 0) // quick check for non negative decimal
-            {
-                printf("Invalid input!\n");
-                break;
-            }
-
             // transform to binary representation
-            while (mynum > 0)
+            while (mynum > ZERO)
             {
-                rem = mynum % 2;
-                if (lastone == -1) // first initialization of lastone we dont check
+                rem = mynum % BINARY;
+                if (lastone == -1)
                 {
                     lastone = rem;
                 }
                 else
                 {
-                    if (lastone == rem) // after first initialization we do check each 2 digit
+                    if (lastone == rem)
                     {
                         printf("false\n");
-                        rst = 0;
+                        rst = ZERO;
                         break;
                     }
                     else
@@ -432,9 +441,8 @@ int main()
                     }
                 }
 
-                mynum /= 2;
+                mynum /= BINARY;
             }
-
             if (rst)
                 printf("true\n");
 
@@ -442,10 +450,10 @@ int main()
 
         case 7:
             printf("Bye!\n");
-            exit = 1;
+            exit = TRUE;
             break;
         default:
-            printf("invalid option: \n");
+            printf("Invalid option: \n");
             continue;
             break;
         }

@@ -35,7 +35,7 @@ int main()
     printf("overflow\n");
 
     // part 2 special print
-    printf("”hello \\ / \\ /orld %%d\\n”, x;\n");
+    printf("\"hello \\ / \\ /orld %%d\\n\", x;\n");
 
     return 0;
 }
