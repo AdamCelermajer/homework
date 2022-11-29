@@ -1,1 +1,4 @@
-printBoard(board);
+{
+//     char *a = {'1'};
+//     return a;
+// }

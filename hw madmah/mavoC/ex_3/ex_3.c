@@ -53,6 +53,17 @@ void printError()
     printf("Throw yourself in next time, and then you will be no further nuisance.\n");
 }
 
+void cleanBuffer()
+{
+
+    char buffer;
+    scanf("%c", &buffer);
+    while (buffer != ' ')
+    {
+        scanf("%c", &buffer);
+    }
+}
+
 /************************************************************************
  * function name: final *
  * The Input: 3 integer variable  *
@@ -119,10 +130,15 @@ int operator()
     int val1 = ZERO, val2 = ZERO;
     scanf("%c", &ch);
 
+    if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9')))
+    {
+
+        return FALSE;
+    }
+
     if (ch == ')')
     {
         return FALSE;
-        ;
     }
     if (ch >= '0' && ch <= '9')
     {
@@ -139,8 +155,15 @@ int operator()
         scanf("%c", &ch);
     }
 
+    // todo operator
     op = ch;
     scanf("%c", &ch);
+
+    if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9')))
+    {
+
+        return FALSE;
+    }
 
     if (ch >= '0' && ch <= '9')
     {
@@ -218,6 +241,7 @@ int brain()
 
             if (val == FALSE)
             {
+                cleanBuffer();
                 return FALSE;
             }
             if (not )
@@ -351,7 +375,7 @@ void main()
         printMenu();
 
         int choice;
-        scanf("%d", &choice);
+        int reader = scanf("%d", &choice);
         switch (choice)
         {
         case 1:
@@ -374,7 +398,7 @@ void main()
 
         case 2:
 
-            printf("");
+            printf("\n");
             int ret = printTwo();
             if (ret == ZERO)
             {
@@ -384,7 +408,7 @@ void main()
             break;
 
         case 3:
-            printf("Enter two positive numbers: ");
+            printf("\nEnter two positive numbers: ");
             int num1, num2;
 
             if (!scanf("%d", &num1) || !scanf("%d", &num2) || num1 < ZERO || num2 < ZERO)
@@ -410,7 +434,8 @@ void main()
             break;
 
         default:
-
+            if (!reader)
+                scanf("%c", &choice);
             printError();
             break;
         }
